@@ -85,7 +85,7 @@ func main() {
 			fmt.Println("no info section")
 		}
 
-		// fmt.Println("Length: ", info["length"])
+		fmt.Println("Length:", info["length"])
 
 	} else {
 		fmt.Println("Unknown command: " + command)
