@@ -31,9 +31,12 @@ func DecodeString(bencodedString string, idx int) (string, int, error) {
 
 func DecodeInt(bencodedString string, idx int) (int, int, error) {
 	var num string
+	neg := false
 	for i := idx + 1; i < len(bencodedString); i++ {
 		if unicode.IsDigit(rune(bencodedString[i])) {
 			num = num + string(bencodedString[i])
+		} else if rune(bencodedString[i]) == '-' {
+			neg = true
 		} else {
 			break
 		}
@@ -42,7 +45,9 @@ func DecodeInt(bencodedString string, idx int) (int, int, error) {
 	if err != nil {
 		return 0, 0, err
 	}
-
+	if neg {
+		a = a * -1
+	}
 	return a, len(num) + 2, nil
 }
 
