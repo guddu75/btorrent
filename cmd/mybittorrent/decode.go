@@ -72,8 +72,8 @@ func DecodeList(bencodedString string, idx int) ([]interface{}, int, error) {
 			}
 			slice = append(slice, decodedList)
 			i += length
-		} else if idx < len(bencodedString) && rune(bencodedString[i]) == 'e' {
-			i++
+		} else {
+			break
 		}
 		// fmt.Println(slice...)
 	}
