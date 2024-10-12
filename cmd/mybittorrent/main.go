@@ -79,14 +79,14 @@ func main() {
 			return
 		}
 
-		dec, _ := decoded.(map[string]interface{})
+		dec, _ := decoded.(map[string]string)
 		// fmt.Println(dec)
-		dict := make(map[string]interface{}, 0)
+		// dict := make(map[string]interface{}, 0)
 
-		dict["Tracker URL"] = dec["announce"]
+		// dict["Tracker URL"] = dec["announce"]
 
-		jsonOutput, _ := json.Marshal(dict)
-		fmt.Println(string(jsonOutput))
+		// jsonOutput, _ := json.Marshal(dict)
+		fmt.Println("Tracker URL: " + string(dec["announce"]))
 
 	} else {
 		fmt.Println("Unknown command: " + command)
