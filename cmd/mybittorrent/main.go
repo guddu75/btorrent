@@ -34,6 +34,12 @@ func decodeBencode(bencodedString string) (interface{}, error) {
 			return "", err
 		}
 		return decodedList, nil
+	} else if rune(bencodedString[0]) == 'd' {
+		decodedDict, _, err := DecodeDict(bencodedString, 0)
+		if err != nil {
+			return "", err
+		}
+		return decodedDict, nil
 	} else {
 		return "", fmt.Errorf("Only strings are supported at the moment")
 	}

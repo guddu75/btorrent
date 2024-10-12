@@ -86,3 +86,56 @@ func DecodeList(bencodedString string, idx int) ([]interface{}, int, error) {
 	return slice, i - idx + 1, nil
 
 }
+
+func DecodeDict(bencodedString string, idx int) (map[string]interface{}, int, error) {
+	dict := make(map[string]interface{}, 0)
+	var i int
+	for i = idx + 1; i < len(bencodedString); {
+		// var key string
+		if unicode.IsDigit(rune(bencodedString[i])) {
+			key, length, err := DecodeString(bencodedString, i)
+			if err != nil {
+				return nil, 0, err
+			}
+			i += length
+			// fmt.Println(key)
+			if unicode.IsDigit(rune(bencodedString[i])) {
+				decodedString, length, err := DecodeString(bencodedString, i)
+				if err != nil {
+					return nil, 0, err
+				}
+				dict[key] = decodedString
+				i += length
+			} else if rune(bencodedString[i]) == 'i' {
+				decodedINT, length, err := DecodeInt(bencodedString, i)
+				if err != nil {
+					return nil, 0, err
+				}
+				dict[key] = decodedINT
+				i += length
+			} else if rune(bencodedString[i]) == 'l' {
+				decodedList, length, err := DecodeList(bencodedString, i)
+				if err != nil {
+					return nil, 0, err
+				}
+				dict[key] = decodedList
+				i += length
+			} else if rune(bencodedString[i]) == 'd' {
+				decodedDict, length, err := DecodeDict(bencodedString, i)
+				if err != nil {
+					return nil, 0, err
+				}
+				dict[key] = decodedDict
+				i += length
+			} else {
+				break
+			}
+			// fmt.Println(dict)
+		} else {
+			break
+		}
+
+	}
+
+	return dict, i - idx + 1, nil
+}
