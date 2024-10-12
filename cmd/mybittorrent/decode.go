@@ -16,12 +16,15 @@ func DecodeString(bencodedString string, idx int) (string, int, error) {
 		}
 	}
 
-	lengthStr := bencodedString[:firstColonIndex]
+	lengthStr := bencodedString[idx:firstColonIndex]
+
+	// fmt.Println(lengthStr)
 
 	length, err := strconv.Atoi(lengthStr)
 	if err != nil {
 		return "", 0, err
 	}
+	// fmt.Println(bencodedString[firstColonIndex+1:firstColonIndex+1+length], length+len(lengthStr)+1)
 	return bencodedString[firstColonIndex+1 : firstColonIndex+1+length], length + len(lengthStr) + 1, nil
 
 }
@@ -46,7 +49,7 @@ func DecodeInt(bencodedString string, idx int) (int, int, error) {
 func DecodeList(bencodedString string, idx int) ([]interface{}, int, error) {
 	var slice []interface{}
 	var i int
-	for i = idx; ; {
+	for i = idx; i < len(bencodedString); {
 		if unicode.IsDigit(rune(bencodedString[i])) {
 			decodedString, length, err := DecodeString(bencodedString, i)
 			if err != nil {
@@ -66,6 +69,7 @@ func DecodeList(bencodedString string, idx int) ([]interface{}, int, error) {
 		} else {
 			break
 		}
+		// fmt.Println(slice...)
 	}
 
 	return slice, i - idx + 1, nil

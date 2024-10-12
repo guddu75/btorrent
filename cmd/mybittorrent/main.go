@@ -52,7 +52,7 @@ func main() {
 
 		decoded, err := decodeBencode(bencodedValue)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println(err, err.Error())
 			return
 		}
 
