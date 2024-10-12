@@ -77,7 +77,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err, err.Error())
 		}
-		fmt.Println("Tracker URL: ", decoded["announce"])
+		fmt.Println("Tracker URL:", decoded["announce"])
 
 		info, ok := decoded["info"].(map[string]interface{})
 
@@ -85,7 +85,7 @@ func main() {
 			fmt.Println("no info section")
 		}
 
-		fmt.Println("Length: ", info["length"])
+		// fmt.Println("Length: ", info["length"])
 
 	} else {
 		fmt.Println("Unknown command: " + command)
