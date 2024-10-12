@@ -57,11 +57,12 @@ func main() {
 		bencodedValue := os.Args[2]
 
 		decoded, err := decodeBencode(bencodedValue)
+		dec, _ := decoded.(map[string]interface{})
+		fmt.Println(dec)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
 		}
-
 		jsonOutput, _ := json.Marshal(decoded)
 		fmt.Println(string(jsonOutput))
 	} else if command == "info" {
@@ -72,17 +73,19 @@ func main() {
 		}
 
 		decoded, err := decodeBencode(string(data))
-		fmt.Println(decoded)
+		// fmt.Println(decoded)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
 		}
 
-		// dict := make(map[string]interface{})
+		dec, _ := decoded.(map[string]interface{})
+		// fmt.Println(dec)
+		dict := make(map[string]interface{}, 0)
 
-		// dict["racker URL"] = decoded["announce"]
+		dict["Tracker URL"] = dec["announce"]
 
-		jsonOutput, _ := json.Marshal(decoded)
+		jsonOutput, _ := json.Marshal(dict)
 		fmt.Println(string(jsonOutput))
 
 	} else {
