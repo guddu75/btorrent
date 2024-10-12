@@ -73,7 +73,7 @@ func main() {
 		}
 
 		decoded, err := decodeBencode(string(data))
-		// fmt.Println(decoded)
+		fmt.Println(decoded)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
