@@ -72,10 +72,15 @@ func main() {
 		}
 
 		decoded, err := decodeBencode(string(data))
+		fmt.Println(decoded)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
 		}
+
+		// dict := make(map[string]interface{})
+
+		// dict["racker URL"] = decoded["announce"]
 
 		jsonOutput, _ := json.Marshal(decoded)
 		fmt.Println(string(jsonOutput))
