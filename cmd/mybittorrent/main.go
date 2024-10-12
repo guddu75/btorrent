@@ -57,8 +57,8 @@ func main() {
 		bencodedValue := os.Args[2]
 
 		decoded, err := decodeBencode(bencodedValue)
-		dec, _ := decoded.(map[string]interface{})
-		fmt.Println(dec)
+		// dec, _ := decoded.(map[string]interface{})
+		// fmt.Println(dec)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
