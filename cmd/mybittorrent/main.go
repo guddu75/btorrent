@@ -64,6 +64,22 @@ func main() {
 
 		jsonOutput, _ := json.Marshal(decoded)
 		fmt.Println(string(jsonOutput))
+	} else if command == "info" {
+		data, err := os.ReadFile(os.Args[2])
+
+		if err != nil {
+			fmt.Println(err, err.Error())
+		}
+
+		decoded, err := decodeBencode(string(data))
+		if err != nil {
+			fmt.Println(err, err.Error())
+			return
+		}
+
+		jsonOutput, _ := json.Marshal(decoded)
+		fmt.Println(string(jsonOutput))
+
 	} else {
 		fmt.Println("Unknown command: " + command)
 		os.Exit(1)
