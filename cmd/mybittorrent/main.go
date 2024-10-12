@@ -72,21 +72,20 @@ func main() {
 			fmt.Println(err, err.Error())
 		}
 
-		decoded, err := decodeBencode(string(data))
-		fmt.Println(decoded)
+		decoded, _, err := DecodeDict(string(data), 0)
+
 		if err != nil {
 			fmt.Println(err, err.Error())
-			return
+		}
+		fmt.Println("Tracker URL: %v", decoded["announce"])
+
+		info, ok := decoded["info"].(map[string]interface{})
+
+		if info == nil || !ok {
+			fmt.Println("no info section")
 		}
 
-		dec, _ := decoded.(map[string]string)
-		// fmt.Println(dec)
-		// dict := make(map[string]interface{}, 0)
-
-		// dict["Tracker URL"] = dec["announce"]
-
-		// jsonOutput, _ := json.Marshal(dict)
-		fmt.Println("Tracker URL: " + string(dec["announce"]))
+		fmt.Println("Length: %v", info["length"])
 
 	} else {
 		fmt.Println("Unknown command: " + command)
