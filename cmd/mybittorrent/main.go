@@ -91,6 +91,10 @@ func main() {
 
 		fmt.Printf("Info Hash: %x\n", hasher.Sum(nil))
 
+		// fmt.Println("Piece Length:", info["piece length"])
+
+		fmt.Println(info)
+
 	} else {
 		fmt.Println("Unknown command: " + command)
 		os.Exit(1)
