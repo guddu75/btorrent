@@ -91,7 +91,7 @@ func main() {
 
 		fmt.Printf("Info Hash: %x\n", hasher.Sum(nil))
 
-		// fmt.Println("Piece Length:", info["piece length"])
+		fmt.Println("Piece Length:", info["piece length"])
 
 		fmt.Println(info)
 
