@@ -1,11 +1,13 @@
 package main
 
 import (
+	"crypto/sha1"
 	"encoding/json"
 	"fmt"
 	"os"
 	"unicode"
-	// bencode "github.com/jackpal/bencode-go" // Available if you need it!
+
+	bencode "github.com/jackpal/bencode-go" // Available if you need it!
 )
 
 // Ensures gofmt doesn't remove the "os" encoding/json import (feel free to remove this!)
@@ -52,13 +54,9 @@ func main() {
 	command := os.Args[1]
 
 	if command == "decode" {
-		// Uncomment this block to pass the first stage
-
 		bencodedValue := os.Args[2]
 
 		decoded, err := decodeBencode(bencodedValue)
-		// dec, _ := decoded.(map[string]interface{})
-		// fmt.Println(dec)
 		if err != nil {
 			fmt.Println(err, err.Error())
 			return
@@ -86,6 +84,12 @@ func main() {
 		}
 
 		fmt.Println("Length:", info["length"])
+
+		hasher := sha1.New()
+
+		bencode.Marshal(hasher, info)
+
+		fmt.Printf("Info Hash: %x\n", hasher.Sum(nil))
 
 	} else {
 		fmt.Println("Unknown command: " + command)
