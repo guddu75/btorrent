@@ -1,13 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"crypto/sha1"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"unicode"
-
-	bencode "github.com/jackpal/bencode-go" // Available if you need it!
+	// Available if you need it!
 )
 
 // Ensures gofmt doesn't remove the "os" encoding/json import (feel free to remove this!)
@@ -75,7 +76,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err, err.Error())
 		}
-		fmt.Println("Tracker URL:", decoded["announce"])
+		// fmt.Println("Tracker URL:", decoded["announce"])
 
 		info, ok := decoded["info"].(map[string]interface{})
 
@@ -83,17 +84,25 @@ func main() {
 			fmt.Println("no info section")
 		}
 
-		fmt.Println("Length:", info["length"])
+		// fmt.Println("Length:", info["length"])
 
-		hasher := sha1.New()
+		buf := bytes.Buffer{}
 
-		bencode.Marshal(hasher, info)
+		be := bendcoder{&buf}
 
-		fmt.Printf("Info Hash: %x\n", hasher.Sum(nil))
+		err = be.encode(info)
 
-		fmt.Println("Piece Length:", info["piece length"])
+		h := sha1.New()
 
-		fmt.Println(info)
+		io.Copy(h, &buf)
+
+		sum := h.Sum(nil)
+
+		fmt.Print("Tracker URL: ", decoded["announce"])
+		fmt.Print("Length: ", info["length"])
+		fmt.Printf("Info Hash: %x", sum)
+		fmt.Print("Piece Length: ", info["piece length"])
+		fmt.Printf("Piece Hashes: %x", info["pieces"])
 
 	} else {
 		fmt.Println("Unknown command: " + command)
