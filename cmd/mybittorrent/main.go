@@ -1,11 +1,8 @@
 package main
 
 import (
-	"bytes"
-	"crypto/sha1"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"unicode"
 	// Available if you need it!
@@ -64,7 +61,7 @@ func main() {
 		}
 		jsonOutput, _ := json.Marshal(decoded)
 		fmt.Println(string(jsonOutput))
-	} else if command == "info" {
+	} else if command == "info" || command == "peers" {
 		data, err := os.ReadFile(os.Args[2])
 
 		if err != nil {
@@ -86,23 +83,43 @@ func main() {
 
 		// fmt.Println("Length:", info["length"])
 
-		buf := bytes.Buffer{}
+		// buf := bytes.Buffer{}
 
-		be := bendcoder{&buf}
+		// be := bendcoder{&buf}
 
-		err = be.encode(info)
+		// err = be.encode(info)
 
-		h := sha1.New()
+		// h := sha1.New()
 
-		io.Copy(h, &buf)
+		// io.Copy(h, &buf)
 
-		sum := h.Sum(nil)
+		// sum := h.Sum(nil)
 
-		fmt.Print("Tracker URL: ", decoded["announce"])
-		fmt.Print("Length: ", info["length"])
-		fmt.Printf("Info Hash: %x", sum)
-		fmt.Print("Piece Length: ", info["piece length"])
-		fmt.Printf("Piece Hashes: %x", info["pieces"])
+		if command == "info" {
+			hash, err := getHash(info)
+			if err != nil {
+				fmt.Println(err.Error())
+				os.Exit(1)
+			}
+			fmt.Print("Tracker URL: ", decoded["announce"])
+			fmt.Print("Length: ", info["length"])
+			fmt.Printf("Info Hash: %x", hash)
+			fmt.Print("Piece Length: ", info["piece length"])
+			fmt.Printf("Piece Hashes: %x", info["pieces"])
+		} else if command == "peers" {
+			resp, err := getPeers(info)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
+			decodedResp, _, err := DecodeDict(resp, 0)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
+			peers := decodedResp["peers"].(string)
+			for i := 0; i < len(peers); i += 6 {
+				fmt.Println(peers[i : i+6])
+			}
+		}
 
 	} else {
 		fmt.Println("Unknown command: " + command)
