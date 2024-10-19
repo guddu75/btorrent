@@ -81,20 +81,6 @@ func main() {
 			fmt.Println("no info section")
 		}
 
-		// fmt.Println("Length:", info["length"])
-
-		// buf := bytes.Buffer{}
-
-		// be := bendcoder{&buf}
-
-		// err = be.encode(info)
-
-		// h := sha1.New()
-
-		// io.Copy(h, &buf)
-
-		// sum := h.Sum(nil)
-
 		if command == "info" {
 			hash, err := getHash(info)
 			if err != nil {
@@ -107,6 +93,7 @@ func main() {
 			fmt.Print("Piece Length: ", info["piece length"])
 			fmt.Printf("Piece Hashes: %x", info["pieces"])
 		} else if command == "peers" {
+			fmt.Println("here")
 			resp, err := getPeers(info)
 			if err != nil {
 				fmt.Println(err.Error())
