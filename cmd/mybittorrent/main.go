@@ -94,7 +94,7 @@ func main() {
 			fmt.Printf("Piece Hashes: %x", info["pieces"])
 		} else if command == "peers" {
 			// fmt.Println("here")
-			resp, err := getPeers(info)
+			resp, err := getPeers(decoded)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
