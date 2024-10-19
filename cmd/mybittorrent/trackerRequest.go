@@ -12,9 +12,9 @@ import (
 func getPeers(trnt map[string]interface{}) (string, error) {
 	baseURL := trnt["announce"].(string)
 
-	info, ok := trnt["info"].(map[string]interface{})
+	fmt.Println(baseURL)
 
-	fmt.Println("here")
+	info, ok := trnt["info"].(map[string]interface{})
 
 	if info == nil || !ok {
 		return "", errors.New("No info section")
