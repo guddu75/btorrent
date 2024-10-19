@@ -16,6 +16,8 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 
 	info, ok := trnt["info"].(map[string]interface{})
 
+	fmt.Println(info)
+
 	if info == nil || !ok {
 		return "", errors.New("No info section")
 	}
