@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,6 +13,8 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	baseURL := trnt["announce"].(string)
 
 	info, ok := trnt["info"].(map[string]interface{})
+
+	fmt.Println("here")
 
 	if info == nil || !ok {
 		return "", errors.New("No info section")
