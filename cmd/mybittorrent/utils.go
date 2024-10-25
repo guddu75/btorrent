@@ -23,7 +23,6 @@ func getHash(content interface{}) ([]byte, error) {
 
 	io.Copy(h, &buf)
 	sum := h.Sum(nil)
-	fmt.Println(sum)
 	return sum, nil
 }
 

@@ -13,11 +13,7 @@ import (
 func getPeers(trnt map[string]interface{}) (string, error) {
 	baseURL := trnt["announce"].(string)
 
-	// fmt.Println(baseURL)
-
 	info, ok := trnt["info"].(map[string]interface{})
-
-	// fmt.Println(info)
 
 	if info == nil || !ok {
 		return "", errors.New("No info section")
@@ -28,7 +24,6 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	if err != nil {
 		return "", errors.New("could not parse URL")
 	}
-	// fmt.Println("URl parsed")
 
 	infoHash, err := getHash(info)
 
@@ -43,7 +38,6 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	} else if val.Kind() == reflect.Int {
 		length = fmt.Sprintf("%v", val)
 	}
-	// fmt.Println(length)
 
 	// Add query parameters
 	queryParams := url.Values{}
@@ -52,7 +46,6 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("port", "6881")
 	queryParams.Add("uploaded", "0")
 	queryParams.Add("downloaded", "0")
-	// fmt.Println(info["length"])
 	queryParams.Add("left", length)
 	queryParams.Add("compact", "1")
 	// PrintCurrentLine()
