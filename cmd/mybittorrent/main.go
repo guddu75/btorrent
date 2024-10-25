@@ -97,7 +97,7 @@ func main() {
 			// get peerss
 			resp, err := getPeers(decoded)
 			if err != nil {
-				fmt.Println(err.Error())
+				fmt.Println("Response not happened error", err.Error())
 			}
 			decodedResp, _, err := DecodeDict(resp, 0)
 			if err != nil {
