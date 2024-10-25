@@ -93,8 +93,6 @@ func main() {
 			fmt.Print("Piece Length: ", info["piece length"])
 			fmt.Printf("Piece Hashes: %x", info["pieces"])
 		} else if command == "peers" {
-			// fmt.Println("here")
-			// get peerss
 			resp, err := getPeers(decoded)
 			if err != nil {
 				fmt.Println("Response not happened error", err.Error())
@@ -103,8 +101,8 @@ func main() {
 			if err != nil {
 				fmt.Println(err.Error())
 			}
+			fmt.Println(decodedResp)
 			peers := decodedResp["peers"].(string)
-			fmt.Println(peers)
 			for i := 0; i < len(peers); i += 6 {
 				fmt.Println(peers[i : i+6])
 			}
