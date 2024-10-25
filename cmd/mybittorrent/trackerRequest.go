@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 )
 
 func getPeers(trnt map[string]interface{}) (string, error) {
@@ -15,7 +14,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 
 	fmt.Println(baseURL)
 
-	info, ok := trnt["info"].(map[string]string)
+	info, ok := trnt["info"].(map[string]interface{})
 
 	fmt.Println(info)
 
@@ -36,9 +35,6 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		return "", err
 	}
 
-	fmt.Printf("infoHash", string(infoHash))
-	fmt.Println("infohash string")
-
 	// Add query parameters
 	queryParams := url.Values{}
 	queryParams.Add("info_hash", string(infoHash))
@@ -46,14 +42,8 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("port", "6881")
 	queryParams.Add("uploaded", "0")
 	queryParams.Add("downloaded", "0")
-	// len := info["length"].(int)
-	// length := string(len)
-	if !ok {
-		fmt.Println("can not convert")
-		os.Exit(1)
-	}
-	// fmt.Println(length)
-	queryParams.Add("left", info["length"])
+	fmt.Println(info["length"])
+	// queryParams.Add("left", info["length"])
 	queryParams.Add("compact", "1")
 	PrintCurrentLine()
 
