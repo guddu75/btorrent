@@ -27,13 +27,15 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	if err != nil {
 		return "", errors.New("could not parse URL")
 	}
-	fmt.Println("URl parsed")
+	// fmt.Println("URl parsed")
 
 	infoHash, err := getHash(info)
 
 	if err != nil {
 		return "", err
 	}
+
+	fmt.Println("infoHash", infoHash)
 
 	// Add query parameters
 	queryParams := url.Values{}
@@ -58,6 +60,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	if err != nil {
 		log.Fatalf("Failed to make the request: %v", err)
 	}
+	fmt.Println("got response successfully")
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
