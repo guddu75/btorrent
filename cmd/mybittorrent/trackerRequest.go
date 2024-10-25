@@ -37,6 +37,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 
 	fmt.Printf("infoHash", string(infoHash))
 	fmt.Println("infohash string")
+	PrintCurrentLine()
 
 	// Add query parameters
 	queryParams := url.Values{}
@@ -47,6 +48,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("downloaded", "0")
 	queryParams.Add("left", info["length"].(string))
 	queryParams.Add("compact", "1")
+
 	u.RawQuery = queryParams.Encode() // Attach the query params to the URL
 
 	// Create a new GET request
@@ -71,7 +73,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		}
 		// fmt.Println("Got resposne")
 		// fmt.Println(string(body))
-		PrintCurrentLine()
+
 		return string(body), nil
 	}
 	return "", nil
