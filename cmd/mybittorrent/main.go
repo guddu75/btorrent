@@ -106,7 +106,7 @@ func main() {
 			// fmt.Println("decodedResp", decodedResp)
 			peers := decodedResp["peers"].(string)
 			for i := 0; i < len(peers); i += 6 {
-				port := binary.BigEndian.Uint16([]byte(peers[i+4 : i+6]))
+				port := strconv.Itoa(int(binary.BigEndian.Uint16([]byte(peers[i+4 : i+6]))))
 				fmt.Printf("%s.%s.%s.%s:%s\n",
 					strconv.Itoa(int(peers[i])),
 					strconv.Itoa(int(peers[i+1])),
