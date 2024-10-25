@@ -64,7 +64,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		if err != nil {
 			log.Fatalf("Failed to read the response body: %v", err)
 		}
-
+		fmt.Println("Got resposne")
 		// fmt.Println(string(body))
 		return string(body), nil
 	}
