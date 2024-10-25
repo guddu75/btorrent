@@ -105,12 +105,13 @@ func main() {
 			// fmt.Println("decodedResp", decodedResp)
 			peers := decodedResp["peers"].(string)
 			for i := 0; i < len(peers); i += 6 {
+				port := strconv.Itoa(int(peers[i+4])) + strconv.Itoa(int(peers[i+5]))
 				fmt.Printf("%s.%s.%s.%s:%s",
 					strconv.Itoa(int(peers[i])),
 					strconv.Itoa(int(peers[i+1])),
 					strconv.Itoa(int(peers[i+2])),
 					strconv.Itoa(int(peers[i+3])),
-					"PORT")
+					port)
 			}
 		}
 
