@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"reflect"
 )
 
 func getPeers(trnt map[string]interface{}) (string, error) {
@@ -35,6 +36,15 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		return "", err
 	}
 
+	val := reflect.ValueOf(info["length"])
+	var length string
+	if val.Kind() == reflect.String {
+		length = val.String()
+	} else if val.Kind() == reflect.Int {
+		length = fmt.Sprintf("%v", val)
+	}
+	fmt.Println(length)
+
 	// Add query parameters
 	queryParams := url.Values{}
 	queryParams.Add("info_hash", string(infoHash))
@@ -42,12 +52,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("port", "6881")
 	queryParams.Add("uploaded", "0")
 	queryParams.Add("downloaded", "0")
-	fmt.Println(info["length"])
-	length, ok := info["length"].(string)
-
-	if !ok {
-		fmt.Println("Can not convert to string info[length]")
-	}
+	// fmt.Println(info["length"])
 	queryParams.Add("left", length)
 	queryParams.Add("compact", "1")
 	PrintCurrentLine()
