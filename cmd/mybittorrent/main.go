@@ -106,7 +106,7 @@ func main() {
 			peers := decodedResp["peers"].(string)
 			for i := 0; i < len(peers); i += 6 {
 				port := strconv.Itoa(int(peers[i+4])) + strconv.Itoa(int(peers[i+5]))
-				fmt.Printf("%s.%s.%s.%s:%s",
+				fmt.Printf("%s.%s.%s.%s:%s\n",
 					strconv.Itoa(int(peers[i])),
 					strconv.Itoa(int(peers[i+1])),
 					strconv.Itoa(int(peers[i+2])),
