@@ -45,7 +45,10 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("port", "6881")
 	queryParams.Add("uploaded", "0")
 	queryParams.Add("downloaded", "0")
-	length := info["length"].(string)
+	length, ok := info["length"].(string)
+	if !ok {
+		fmt.Println("can not convert")
+	}
 	fmt.Println(length)
 	queryParams.Add("left", length)
 	queryParams.Add("compact", "1")
