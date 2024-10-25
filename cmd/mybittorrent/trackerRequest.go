@@ -13,11 +13,11 @@ import (
 func getPeers(trnt map[string]interface{}) (string, error) {
 	baseURL := trnt["announce"].(string)
 
-	fmt.Println(baseURL)
+	// fmt.Println(baseURL)
 
 	info, ok := trnt["info"].(map[string]interface{})
 
-	fmt.Println(info)
+	// fmt.Println(info)
 
 	if info == nil || !ok {
 		return "", errors.New("No info section")
@@ -55,7 +55,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	// fmt.Println(info["length"])
 	queryParams.Add("left", length)
 	queryParams.Add("compact", "1")
-	PrintCurrentLine()
+	// PrintCurrentLine()
 
 	u.RawQuery = queryParams.Encode() // Attach the query params to the URL
 
