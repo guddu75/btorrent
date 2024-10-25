@@ -104,6 +104,7 @@ func main() {
 				fmt.Println(err.Error())
 			}
 			peers := decodedResp["peers"].(string)
+			fmt.Println(peers)
 			for i := 0; i < len(peers); i += 6 {
 				fmt.Println(peers[i : i+6])
 			}

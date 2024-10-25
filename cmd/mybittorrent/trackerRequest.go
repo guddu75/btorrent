@@ -43,7 +43,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	} else if val.Kind() == reflect.Int {
 		length = fmt.Sprintf("%v", val)
 	}
-	fmt.Println(length)
+	// fmt.Println(length)
 
 	// Add query parameters
 	queryParams := url.Values{}
@@ -71,7 +71,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	if err != nil {
 		log.Fatalf("Failed to make the request: %v", err)
 	}
-	fmt.Println("got response successfully")
+	// fmt.Println("got response successfully")
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
