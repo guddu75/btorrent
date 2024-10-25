@@ -15,7 +15,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 
 	fmt.Println(baseURL)
 
-	info, ok := trnt["info"].(map[string]interface{})
+	info, ok := trnt["info"].(map[string]string)
 
 	fmt.Println(info)
 
@@ -46,14 +46,14 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	queryParams.Add("port", "6881")
 	queryParams.Add("uploaded", "0")
 	queryParams.Add("downloaded", "0")
-	len := info["length"].(int)
-	length := string(len)
+	// len := info["length"].(int)
+	// length := string(len)
 	if !ok {
 		fmt.Println("can not convert")
 		os.Exit(1)
 	}
-	fmt.Println(length)
-	queryParams.Add("left", length)
+	// fmt.Println(length)
+	queryParams.Add("left", info["length"])
 	queryParams.Add("compact", "1")
 	PrintCurrentLine()
 
