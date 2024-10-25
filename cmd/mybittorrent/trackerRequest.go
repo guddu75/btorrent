@@ -35,7 +35,8 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		return "", err
 	}
 
-	fmt.Printf("Type of infoHash %T", infoHash)
+	fmt.Printf("infoHash", string(infoHash))
+	fmt.Println("infohash string")
 
 	// Add query parameters
 	queryParams := url.Values{}
