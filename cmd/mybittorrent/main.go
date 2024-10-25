@@ -101,11 +101,16 @@ func main() {
 			if err != nil {
 				fmt.Println(err.Error())
 			}
-			fmt.Println("decodedResp", decodedResp)
-			// peers := decodedResp["peers"].(string)
-			// for i := 0; i < len(peers); i += 6 {
-			// 	fmt.Println(peers[i : i+6])
-			// }
+			// fmt.Println("decodedResp", decodedResp)
+			peers := decodedResp["peers"].(string)
+			for i := 0; i < len(peers); i += 6 {
+				fmt.Printf("%s.%s.%s.%s:%s",
+					string(peers[i]),
+					string(peers[i+1]),
+					string(peers[i+2]),
+					string(peers[i+3]),
+					"PORT")
+			}
 		}
 
 	} else {
