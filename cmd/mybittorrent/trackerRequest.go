@@ -54,7 +54,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 	if err != nil {
 		log.Fatalf("Failed to create request: %v", err)
 	}
-
+	// PrintCurrentLine()
 	// Make the request using the default HTTP client
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -71,6 +71,7 @@ func getPeers(trnt map[string]interface{}) (string, error) {
 		}
 		// fmt.Println("Got resposne")
 		// fmt.Println(string(body))
+		PrintCurrentLine()
 		return string(body), nil
 	}
 	return "", nil

@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"io"
+	"runtime"
 )
 
 func getHash(content interface{}) ([]byte, error) {
@@ -26,4 +27,14 @@ func getHash(content interface{}) ([]byte, error) {
 	fmt.Println(sum)
 
 	return sum, nil
+}
+
+func PrintCurrentLine() {
+	// `Caller(0)` gives us information about the current line
+	_, file, line, ok := runtime.Caller(0)
+	if ok {
+		fmt.Printf("Current file: %s, line: %d\n", file, line)
+	} else {
+		fmt.Println("Unable to retrieve line information.")
+	}
 }
